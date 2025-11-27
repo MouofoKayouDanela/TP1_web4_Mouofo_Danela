@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actor extends Model
 {
-    protected $fillable = ['first_name', 'last_name', 'bithdate'];
+    protected $fillable = ['first_name', 'last_name', 'birthdate'];
 
     public function films()
     {
