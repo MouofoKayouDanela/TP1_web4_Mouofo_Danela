@@ -26,6 +26,11 @@ class User extends Authenticatable
 
     ];
 
+     public function critics()
+    {
+        return $this->hasMany(Critic::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

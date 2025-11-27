@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Critic extends Model
 {
-    protected $fillable = ['comment', 'rating', 'film_id', 'user_id', 'created_at', 'updated_at'];
+    protected $fillable = ['comment', 'score', 'film_id', 'user_id', 'created_at', 'updated_at'];
 
     public function film()
     {
