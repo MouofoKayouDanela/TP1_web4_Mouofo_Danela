@@ -66,10 +66,43 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $user = User::find($id);
+
+            if (!$user) {
+                abort(404, "User not found");
+            }
+
+            $validated = $request->validate([
+                'first_name'=> 'required|string|max:50',
+                'last_name' => 'required|string|max:50',
+                'login'     => 'required|string|max:50',
+                'email' => 'required|email|max:50|unique:users,email,' . $id,
+                'password'  => 'required|string|min:6|max:255',
+            ]);
+
+             $user->update([
+                'first_name'     => $validated['first_name'],
+                'last_name'     => $validated['last_name'],
+                'login'     => $validated['login'],
+                'email'    => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
+
+            return (new UserResource($user))
+                ->response()
+                ->setStatusCode(200);
+
+        } catch (ValidationException $ex) {
+            abort(422, $ex->getMessage());
+
+        } catch (Exception $ex) {
+            abort(500, "Server error");
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
