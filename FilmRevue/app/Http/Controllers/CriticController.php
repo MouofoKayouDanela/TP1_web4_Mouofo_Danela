@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Critic;
 use Illuminate\Http\Request;
-
+use Illuminate\Database\QueryException;
 class CriticController extends Controller
 {
     /**
@@ -41,8 +42,25 @@ class CriticController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+     public function destroy($id)
     {
-        //
+        try {
+            
+            $critic = Critic::findOrFail($id);
+
+            $critic->delete();
+
+            return response()->json([
+                'message' => 'critic deleted successfully'
+            ], 200);
+
+        } catch (QueryException $ex) {
+            abort(404, "critic not found");
+
+        } catch (\Exception $ex) {
+            abort(500, "Server error");
+        }
     }
-}
+        
+    }
+
