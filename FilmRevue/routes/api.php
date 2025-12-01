@@ -13,6 +13,7 @@ Route::apiResource('actors', ActorController::class);
 Route::get('/films/{id}/actors', [FilmController::class, 'getFilmActors']);
 Route::get('/films/{id}/critics', [FilmController::class, 'getFilmCritics']);
 Route::get('films/{id}/average-score', [FilmController::class, 'averageScore']);
+Route::get('films-search', [FilmController::class, 'search']);
 Route::apiResource('languages', LanguageController::class);
 Route::apiResource('critics', CriticController::class);
 Route::apiResource('users', UserController::class);

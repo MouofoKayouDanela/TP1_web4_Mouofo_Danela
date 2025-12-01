@@ -127,5 +127,31 @@ class FilmController extends Controller
             abort(500, "Server error");
         }
     }
+//https://laravel.com/docs/master/queries#where-clauses
+    public function search(Request $request)
+    {
+        try {
+            $films = Film::query() 
+            ->when($request->filled('keyword'), function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->keyword . '%');
+            })
+            ->when($request->filled('rating'), function ($query) use ($request) {
+                $query->where('rating', $request->rating);
+            })
+            ->when($request->filled('minLength'), function ($query) use ($request) {
+                $query->where('length', '>=', $request->minLength);
+            })
+            ->when($request->filled('maxLength'), function ($query) use ($request) {
+                $query->where('length', '<=', $request->maxLength);
+            })
+             ->paginate(20);
+
+            return response()->json($films);
+
+        } catch (Exception $ex) {
+            abort(500, "Server error");
+        }
+    }
+
 
 }
