@@ -1,0 +1,694 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "FilmRevue API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/critics/{id}": {
+            "delete": {
+                "tags": [
+                    "Critics"
+                ],
+                "summary": "Supprimer une critique",
+                "description": "Supprime une critique en utilisant son ID.",
+                "operationId": "4c7bbd907e57760bbbfc560c1ba8e1ba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la critique à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Critique supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "critic deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Critique introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "critic not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/films": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Lister tous les films",
+                "description": "Retourne la liste complète des films.",
+                "operationId": "6f65b2a58d7d23ba8303a3417286ca1e",
+                "responses": {
+                    "200": {
+                        "description": "Liste des films",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Inception"
+                                            },
+                                            "release_year": {
+                                                "type": "integer",
+                                                "example": 2010
+                                            },
+                                            "length": {
+                                                "type": "integer",
+                                                "example": 148
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "A mind-bending thriller"
+                                            },
+                                            "rating": {
+                                                "type": "string",
+                                                "example": "PG-13"
+                                            },
+                                            "language_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "special_features": {
+                                                "type": "string",
+                                                "example": "Deleted Scenes,Behind the Scenes"
+                                            },
+                                            "image": {
+                                                "type": "string",
+                                                "example": "inception.jpg"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-12-01T14:00:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-12-01T14:00:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/films/{id}/actors": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Obtenir les acteurs d’un film",
+                "description": "Retourne la liste des acteurs associés au film.",
+                "operationId": "2c6fba18059a21f712ff3f1576878684",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du film",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des acteurs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Inception"
+                                            },
+                                            "release_year": {
+                                                "type": "integer",
+                                                "example": 2010
+                                            },
+                                            "length": {
+                                                "type": "integer",
+                                                "example": 148
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "A mind-bending thriller"
+                                            },
+                                            "rating": {
+                                                "type": "string",
+                                                "example": "PG-13"
+                                            },
+                                            "language_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "special_features": {
+                                                "type": "string",
+                                                "example": "Deleted Scenes,Behind the Scenes"
+                                            },
+                                            "image": {
+                                                "type": "string",
+                                                "example": "inception.jpg"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-12-01T14:00:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-12-01T14:00:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Film non trouvé ou ID invalide"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/films/{id}/critics": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Obtenir les critiques d’un film",
+                "description": "Retourne les informations du film ainsi que ses critiques.",
+                "operationId": "6c3d8932b27a0f2a19064cc9a3228195",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du film",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Film et critiques associés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "film": {},
+                                        "critics": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Inception"
+                                                    },
+                                                    "release_year": {
+                                                        "type": "integer",
+                                                        "example": 2010
+                                                    },
+                                                    "length": {
+                                                        "type": "integer",
+                                                        "example": 148
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "A mind-bending thriller"
+                                                    },
+                                                    "rating": {
+                                                        "type": "string",
+                                                        "example": "PG-13"
+                                                    },
+                                                    "language_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "special_features": {
+                                                        "type": "string",
+                                                        "example": "Deleted Scenes,Behind the Scenes"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "inception.jpg"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-12-01T14:00:00Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-12-01T14:00:00Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Film non trouvé ou ID invalide"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/films/{film_id}/average-score": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Obtenir la moyenne des scores d'un film",
+                "description": "Calcule la moyenne des scores des critiques associées à un film.",
+                "operationId": "2f2f53832f97987f85ede1785cd082de",
+                "parameters": [
+                    {
+                        "name": "film_id",
+                        "in": "path",
+                        "description": "ID du film",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Moyenne des scores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "average_score": {
+                                            "type": "number",
+                                            "example": 4.2
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Film non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Film not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/films-search": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Recherche de films",
+                "description": "Filtrer les films selon différents paramètres",
+                "operationId": "dfc4971a123cbd74fb0411dd5ffcfdbe",
+                "parameters": [
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Filtre par mot clé dans le titre",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "Filtre par rating du film",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "minLength",
+                        "in": "query",
+                        "description": "Longueur minimale du film",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "maxLength",
+                        "in": "query",
+                        "description": "Longueur maximale du film",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste paginée des films"
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Créer un nouvel utilisateur",
+                "operationId": "592819a0265360b2014512d6dbfaf0e7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "login",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "example": "johndoe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès"
+                    },
+                    "422": {
+                        "description": "Erreur de validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The email field is required."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Mettre à jour un utilisateur",
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "login",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Jane"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Smith"
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "example": "janesmith"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jane@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "newpassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur mis à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Utilisateur introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}/preferred-language": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Obtenir la langue préférée d’un utilisateur",
+                "description": "La langue préférée est déterminée selon les critiques publiées par l'utilisateur.",
+                "operationId": "b0616f0bd4be35487956ca77ee06a680",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 4
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Langue préférée trouvée ou aucune critique",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "preferred_language": {
+                                            "type": "string",
+                                            "example": "English",
+                                            "nullable": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User has no critics"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Utilisateur introuvable"
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Critics",
+            "description": "Critics"
+        },
+        {
+            "name": "Films",
+            "description": "Films"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

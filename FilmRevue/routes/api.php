@@ -9,12 +9,10 @@ use App\Http\Controllers\CriticController;
 use App\Http\Controllers\UserController;
 
 Route::apiResource('films', FilmController::class);
-Route::apiResource('actors', ActorController::class);
 Route::get('/films/{id}/actors', [FilmController::class, 'getFilmActors']);
 Route::get('/films/{id}/critics', [FilmController::class, 'getFilmCritics']);
 Route::get('films/{id}/average-score', [FilmController::class, 'averageScore']);
 Route::get('films-search', [FilmController::class, 'search']);
-Route::apiResource('languages', LanguageController::class);
 Route::apiResource('critics', CriticController::class);
 Route::apiResource('users', UserController::class);
 Route::get('users/{id}/preferred-language', [UserController::class, 'preferredLanguage']);
