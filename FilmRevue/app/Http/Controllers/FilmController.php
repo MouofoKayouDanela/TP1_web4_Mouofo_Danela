@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Film;
 use App\Http\Resources\FilmResource;
 use App\Http\Resources\ActorResource;
+use Illuminate\Database\QueryException;
 
 
 class FilmController extends Controller
@@ -55,4 +56,28 @@ class FilmController extends Controller
     {
         //
     }
+
+    public function getActors($id)
+    {
+        try {
+            
+            $film = Film::with('actors')->find($id);
+
+            if (!$film) {
+            abort(404, 'Film not found');
+            }
+
+            return response()->json($film->actors, 200);
+
+        } catch (QueryException $ex) {
+
+            abort(404, 'invalid id');
+
+
+        } catch ( Exception $ex) {
+
+            abort(500, 'Server error');
+        }
+    }
+
 }

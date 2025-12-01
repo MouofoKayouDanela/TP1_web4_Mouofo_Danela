@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 
 Route::apiResource('films', FilmController::class);
 Route::apiResource('actors', ActorController::class);
+Route::get('/films/{id}/actors', [FilmController::class, 'getActors']);
 Route::apiResource('languages', LanguageController::class);
 Route::apiResource('critics', CriticController::class);
 Route::apiResource('users', UserController::class);
