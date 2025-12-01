@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\QueryException;
 use App\Http\Resources\UserResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class UserController extends Controller
@@ -111,4 +112,40 @@ class UserController extends Controller
     {
         //
     }
+
+    public function preferredLanguage($user_id)
+    {
+        try {
+       
+            $user = User::findOrFail($user_id);
+
+           
+            $preferred = \DB::table('critics')
+                ->join('films', 'critics.film_id', '=', 'films.id')
+                ->join('languages', 'films.language_id', '=', 'languages.id')
+                ->select('languages.id', 'languages.name')
+                ->where('critics.user_id', $user_id)
+                ->groupBy('languages.id', 'languages.name')
+                ->orderByRaw('COUNT(languages.id) DESC')
+                ->first();  
+
+            if (!$preferred) {
+                return response()->json([
+                    'preferred_language' => null,
+                    'message' => 'User has no critics'
+                ])->setStatusCode(200);
+            }
+
+            return response()->json([
+                'preferred_language' => $preferred->name
+            ])->setStatusCode(200);
+
+        } catch (ModelNotFoundException $ex) {
+            abort(404, "User not found");
+
+        } catch (\Exception $ex) {
+            abort(500, "Server error");
+        }
+    }
+
 }

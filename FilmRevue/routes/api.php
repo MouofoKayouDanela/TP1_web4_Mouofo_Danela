@@ -16,3 +16,4 @@ Route::get('films/{id}/average-score', [FilmController::class, 'averageScore']);
 Route::apiResource('languages', LanguageController::class);
 Route::apiResource('critics', CriticController::class);
 Route::apiResource('users', UserController::class);
+Route::get('users/{id}/preferred-language', [UserController::class, 'preferredLanguage']);
