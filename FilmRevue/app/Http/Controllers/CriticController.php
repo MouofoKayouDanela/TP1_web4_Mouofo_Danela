@@ -7,40 +7,59 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 class CriticController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *   path="/api/critics/{id}",
+     *   summary="Supprimer une critique",
+     *   description="Supprime une critique en utilisant son ID.",
+     *   tags={"Critics"},
+     *
+     *   @OA\Parameter(
+     *       name="id",
+     *       in="path",
+     *       required=true,
+     *       description="ID de la critique à supprimer",
+     *       @OA\Schema(type="integer", example=5)
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=200,
+     *       description="Critique supprimée avec succès",
+     *       @OA\JsonContent(
+     *           @OA\Property(
+     *               property="message",
+     *               type="string",
+     *               example="critic deleted successfully"
+     *           )
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=404,
+     *       description="Critique introuvable",
+     *       @OA\JsonContent(
+     *           @OA\Property(
+     *               property="message",
+     *               type="string",
+     *               example="critic not found"
+     *           )
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=500,
+     *       description="Erreur interne du serveur",
+     *       @OA\JsonContent(
+     *           @OA\Property(
+     *               property="message",
+     *               type="string",
+     *               example="Server error"
+     *           )
+     *       )
+     *   ),
+     * )
      */
      public function destroy($id)
     {

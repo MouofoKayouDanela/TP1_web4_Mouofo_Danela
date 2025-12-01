@@ -13,18 +13,50 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+ 
 
     /**
      * Store a newly created resource in storage.
      * https://laravel.com/docs/master/validation#creating-form-requests
      */
+    /**
+     * @OA\Post(
+     *   path="/api/users",
+     *   summary="Créer un nouvel utilisateur",
+     *   tags={"Users"},
+     *
+     *   @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *           required={"first_name", "last_name", "login", "email", "password"},
+     *           @OA\Property(property="first_name", type="string", example="John"),
+     *           @OA\Property(property="last_name", type="string", example="Doe"),
+     *           @OA\Property(property="login", type="string", example="johndoe"),
+     *           @OA\Property(property="email", type="string", example="john@example.com"),
+     *           @OA\Property(property="password", type="string", example="secret123")
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=201,
+     *       description="Utilisateur créé avec succès",
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=422,
+     *       description="Erreur de validation",
+     *       @OA\JsonContent(
+     *           @OA\Property(property="message", type="string", example="The email field is required.")
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=500,
+     *       description="Erreur interne du serveur"
+     *   )
+     * )
+     */
+
     public function store(Request $request)
     {
         try {
@@ -56,17 +88,57 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
+        /**
+     * @OA\Put(
+     *   path="/api/users/{id}",
+     *   summary="Mettre à jour un utilisateur",
+     *   tags={"Users"},
+     *
+     *   @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description="ID de l'utilisateur",
+     *      @OA\Schema(type="integer", example=3)
+     *   ),
+     *
+     *   @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *           required={"first_name", "last_name", "login", "email", "password"},
+     *           @OA\Property(property="first_name", type="string", example="Jane"),
+     *           @OA\Property(property="last_name", type="string", example="Smith"),
+     *           @OA\Property(property="login", type="string", example="janesmith"),
+     *           @OA\Property(property="email", type="string", example="jane@example.com"),
+     *           @OA\Property(property="password", type="string", example="newpassword123")
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=200,
+     *       description="Utilisateur mis à jour avec succès"
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=404,
+     *       description="Utilisateur introuvable",
+     *       @OA\JsonContent(
+     *           @OA\Property(property="message", type="string", example="User not found")
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=422,
+     *       description="Erreur de validation"
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=500,
+     *       description="Erreur interne du serveur"
+     *   )
+     * )
      */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         try {
@@ -104,15 +176,41 @@ class UserController extends Controller
         }
     }
 
-
     /**
-     * Remove the specified resource from storage.
+     * @OA\Get(
+     *   path="/api/users/{id}/preferred-language",
+     *   summary="Obtenir la langue préférée d’un utilisateur",
+     *   description="La langue préférée est déterminée selon les critiques publiées par l'utilisateur.",
+     *   tags={"Users"},
+     *
+     *   @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description="ID de l'utilisateur",
+     *      @OA\Schema(type="integer", example=4)
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=200,
+     *       description="Langue préférée trouvée ou aucune critique",
+     *       @OA\JsonContent(
+     *           @OA\Property(property="preferred_language", type="string", nullable=true, example="English"),
+     *           @OA\Property(property="message", type="string", example="User has no critics")
+     *       )
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=404,
+     *       description="Utilisateur introuvable"
+     *   ),
+     *
+     *   @OA\Response(
+     *       response=500,
+     *       description="Erreur interne du serveur"
+     *   )
+     * )
      */
-    public function destroy(string $id)
-    {
-        //
-    }
-
     public function preferredLanguage($user_id)
     {
         try {
