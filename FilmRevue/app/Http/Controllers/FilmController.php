@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Film;
 use App\Http\Resources\FilmResource;
+use App\Http\Resources\CriticResource;
 use App\Http\Resources\ActorResource;
 use Illuminate\Database\QueryException;
 
@@ -57,7 +58,7 @@ class FilmController extends Controller
         //
     }
 
-    public function getActors($id)
+    public function getFilmActors($id)
     {
         try {
             
@@ -79,5 +80,31 @@ class FilmController extends Controller
             abort(500, 'Server error');
         }
     }
+    public function getFilmCritics($id)
+    {
+        try {
+            
+            $film = Film::with('critics')->find($id);
 
+            if (!$film) {
+            abort(404, 'Film not found');
+            }
+
+            $data = [
+                'film' => new FilmResource($film),
+                'critics' => CriticResource::collection($film->critics),
+            ];
+
+            return response()->json($data, 200);
+
+        } catch (QueryException $ex) {
+
+            abort(404, 'invalid id');
+
+
+        } catch ( Exception $ex) {
+
+            abort(500, 'Server error');
+        }
+    }
 }
