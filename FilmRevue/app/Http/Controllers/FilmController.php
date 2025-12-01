@@ -107,4 +107,25 @@ class FilmController extends Controller
             abort(500, 'Server error');
         }
     }
+//https://laravel.com/docs/master/eloquent-resources
+    public function averageScore($film_id)
+    {
+        try {
+            $film = Film::findOrFail($film_id);
+            
+            if (!$film) {
+            abort(404, 'Film not found');
+            }
+
+            $avgScore = $film->critics()->avg('score');
+
+            return response()->json([
+                'average_score' => $avgScore ?? 0   
+            ])->setStatusCode(200);
+
+        } catch (Exception $ex) {
+            abort(500, "Server error");
+        }
+    }
+
 }
