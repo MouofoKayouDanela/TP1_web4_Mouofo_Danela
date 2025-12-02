@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Film extends Model
 {
 
+    use HasFactory;
+     public $timestamps = false;
 
     protected $fillable = [
         'title',
@@ -17,8 +20,7 @@ class Film extends Model
         'language_id',
         'special_features',
         'image',
-        'created_at',
-        'updated_at'   
+        'created_at'  
     ];
 
     public function language()
@@ -28,7 +30,7 @@ class Film extends Model
 
      public function actors()
     {
-        return $this->belongsToMany(Actor::class, 'actor_film');
+        return $this->belongsToMany(Actor::class, 'actor_film')->withTimestamps();
     }
 
     public function critics()

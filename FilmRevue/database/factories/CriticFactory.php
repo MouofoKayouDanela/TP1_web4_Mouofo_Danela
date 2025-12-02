@@ -19,8 +19,8 @@ class CriticFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::inRandomOrder()->first()?->id,
-            'film_id' => Film::inRandomOrder()->first()?->id, 
+            'user_id' => User::factory(),
+            'film_id' => Film::factory(),
             'score' => $this->faker->randomFloat(1, 0, 9.9),
             'comment'  => $this->faker->text(),
             'created_at' => now(),

@@ -61,25 +61,23 @@ class CriticController extends Controller
      *   ),
      * )
      */
-     public function destroy($id)
+    public function destroy($id)
     {
-        try {
-            
-            $critic = Critic::findOrFail($id);
+        $critic = Critic::find($id);
 
-            $critic->delete();
-
+        if (!$critic) {
             return response()->json([
-                'message' => 'critic deleted successfully'
-            ], 200);
-
-        } catch (QueryException $ex) {
-            abort(404, "critic not found");
-
-        } catch (\Exception $ex) {
-            abort(500, "Server error");
+                'message' => 'critic not found'
+            ], 404);
         }
+
+        $critic->delete();
+
+        return response()->json([
+            'message' => 'critic deleted successfully'
+        ], 200);
     }
+
         
     }
 
