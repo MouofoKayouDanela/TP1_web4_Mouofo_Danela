@@ -22,12 +22,5 @@ class DatabaseSeeder extends Seeder
         ActorSeeder::class,
         ActorFilmSeeder::class
       ]);
-
-        User::factory(10)->create()->each(function ($user) {
-
-        Critic::factory(30)->create([
-            'user_id' => $user->id
-        ]);
-    });
-    }
+  }
 }
