@@ -84,6 +84,7 @@ class FilmTest extends TestCase
     }
 
  
+  
     public function test_get_film_critics_returns_404_if_film_not_found()
     {
         $response = $this->getJson('/api/films/999/critics');
